@@ -12,7 +12,7 @@
   <meta name="author" content="ISOL PRESTIGE">
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph (partage réseaux sociaux) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="ISOL PRESTIGE – Isolation Extérieure">
   <meta property="og:description" content="Expert en isolation thermique par l'extérieur. Certifié RGE. Devis gratuit. Vosges, Meurthe-et-Moselle, Bas-Rhin.">
   <meta property="og:type" content="website">
@@ -51,6 +51,246 @@
     "hasCredential": "RGE Qualibat"
   }
   </script>
+
+  <!-- ============================================================
+       STYLES SECTION AIDES — isolés dans leur propre bloc,
+       sans aucun impact sur les styles existants du site
+  ============================================================ -->
+  <style>
+    /* ---- Section wrapper ---- */
+    #aides {
+      background: #0f0f0f;
+      padding: 80px 0;
+    }
+
+    /* ---- Article card ---- */
+    .aides-article {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    /* ---- Left: texte éditorial ---- */
+    .aides-text {
+      color: #f7f4ef;
+    }
+
+    .aides-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 169, 110, 0.15);
+      border: 1px solid rgba(200, 169, 110, 0.35);
+      color: #c8a96e;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+
+    .aides-text h2 {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 700;
+      color: #f7f4ef;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .aides-text h2 em {
+      color: #c8a96e;
+      font-style: italic;
+    }
+
+    .aides-text p {
+      font-size: 0.95rem;
+      color: rgba(247, 244, 239, 0.65);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .aides-text p strong {
+      color: #f7f4ef;
+      font-weight: 600;
+    }
+
+    /* ---- Points forts ---- */
+    .aides-points {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .aides-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: rgba(247, 244, 239, 0.75);
+    }
+
+    .aides-points li .aides-check {
+      width: 22px;
+      height: 22px;
+      background: rgba(45, 106, 79, 0.25);
+      border: 1px solid rgba(64, 145, 108, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .aides-points li .aides-check i {
+      color: #40916c;
+      font-size: 0.65rem;
+    }
+
+    /* ---- CTA bouton ---- */
+    .aides-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #c8a96e;
+      color: #0f0f0f;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      padding: 15px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .aides-btn:hover {
+      background: #e8d5a3;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(200, 169, 110, 0.25);
+    }
+
+    .aides-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.2s;
+    }
+
+    .aides-btn:hover i {
+      transform: translateX(3px);
+    }
+
+    /* ---- Right: carte chiffres ---- */
+    .aides-stats-card {
+      background: #1a1a1a;
+      border: 1px solid rgba(200, 169, 110, 0.2);
+      border-radius: 16px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aides-stats-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .aides-card-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(200, 169, 110, 0.7);
+      margin-bottom: 6px;
+    }
+
+    .aides-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f7f4ef;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .aides-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .aides-stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .aides-stat-name {
+      font-size: 0.82rem;
+      color: rgba(247, 244, 239, 0.55);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .aides-stat-name i {
+      font-size: 0.85rem;
+      color: #40916c;
+    }
+
+    .aides-stat-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #c8a96e;
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    .aides-note {
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: rgba(45, 106, 79, 0.12);
+      border-left: 3px solid #40916c;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.78rem;
+      color: rgba(247, 244, 239, 0.6);
+      line-height: 1.55;
+    }
+
+    .aides-note strong {
+      color: #40916c;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .aides-article {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .aides-stats-card {
+        padding: 24px;
+      }
+
+      #aides {
+        padding: 60px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -64,7 +304,6 @@
       </a>
 
       <nav class="nav" aria-label="Navigation principale">
-        <!-- Bouton burger (mobile) -->
         <button class="nav-toggle" id="navToggle"
                 aria-label="Ouvrir le menu"
                 aria-expanded="false"
@@ -72,16 +311,15 @@
           <span></span><span></span><span></span>
         </button>
 
-        <!-- Menu desktop -->
         <ul class="nav-links nav-links-desktop">
           <li><a href="#accueil">Accueil</a></li>
           <li><a href="#apropos">Qui sommes-nous ?</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#realisations">Nos réalisations</a></li>
+          <li><a href="#aides">Aides & Primes</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
 
-        <!-- Overlay + menu mobile -->
         <div class="mobile-menu-overlay" id="mobileOverlay"></div>
 
         <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
@@ -97,6 +335,7 @@
             <li><a href="#apropos">Qui sommes-nous ?</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#realisations">Nos réalisations</a></li>
+            <li><a href="#aides">Aides & Primes</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
 
@@ -287,6 +526,116 @@
     </div>
   </section>
 
+  <!-- ================= AIDES & PRIMES (NOUVELLE SECTION) ================= -->
+  <section id="aides" aria-label="Aides financières rénovation énergétique">
+    <article class="aides-article">
+
+      <!-- Texte éditorial gauche -->
+      <div class="aides-text">
+        <span class="aides-tag">
+          <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+          Aides &amp; Primes 2026
+        </span>
+
+        <h2>Financez votre isolation grâce aux<em> aides de l'État</em></h2>
+
+        <p>
+          En choisissant <strong>ISOL PRESTIGE</strong>, entreprise certifiée RGE, vous débloquez
+          l'accès à toutes les aides publiques disponibles en 2026 pour vos travaux d'isolation
+          thermique par l'extérieur.
+        </p>
+        <p>
+          Selon votre profil de revenus, <strong>jusqu'à 75 % du coût de vos travaux</strong> peut
+          être pris en charge par MaPrimeRénov', les primes CEE et l'éco-PTZ. Notre équipe vous
+          accompagne dans chaque démarche, du montage du dossier jusqu'au versement de la prime.
+        </p>
+
+        <ul class="aides-points">
+          <li>
+            <span class="aides-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            MaPrimeRénov' — subvention ANAH versée directement après travaux
+          </li>
+          <li>
+            <span class="aides-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            Prime CEE — déduction supplémentaire sur facture via les fournisseurs d'énergie
+          </li>
+          <li>
+            <span class="aides-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            TVA réduite à 5,5 % sur l'ensemble des travaux éligibles
+          </li>
+          <li>
+            <span class="aides-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            Éco-PTZ — prêt à taux zéro jusqu'à 50 000 € sur 20 ans
+          </li>
+          <li>
+            <span class="aides-check"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
+            Accompagnement complet du dossier par notre équipe
+          </li>
+        </ul>
+
+        <a href="simulateur.html" class="aides-btn" aria-label="Simuler mes aides rénovation énergétique">
+          Simuler mes aides gratuitement
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Carte chiffres droite -->
+      <div class="aides-stats-card" role="complementary" aria-label="Chiffres clés des aides disponibles">
+        <div class="aides-card-label">En chiffres</div>
+        <div class="aides-card-title">Ce que vous pouvez obtenir en 2026</div>
+
+        <div class="aides-stat-row">
+          <span class="aides-stat-name">
+            <i class="fa-solid fa-euro-sign" aria-hidden="true"></i>
+            MaPrimeRénov' (revenus très modestes)
+          </span>
+          <span class="aides-stat-value">75 %</span>
+        </div>
+
+        <div class="aides-stat-row">
+          <span class="aides-stat-name">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+            Prime CEE complémentaire
+          </span>
+          <span class="aides-stat-value">+ 20 %</span>
+        </div>
+
+        <div class="aides-stat-row">
+          <span class="aides-stat-name">
+            <i class="fa-solid fa-piggy-bank" aria-hidden="true"></i>
+            Aide maximale cumulée
+          </span>
+          <span class="aides-stat-value">24 000 €</span>
+        </div>
+
+        <div class="aides-stat-row">
+          <span class="aides-stat-name">
+            <i class="fa-solid fa-percent" aria-hidden="true"></i>
+            TVA réduite sur travaux
+          </span>
+          <span class="aides-stat-value">5,5 %</span>
+        </div>
+
+        <div class="aides-stat-row">
+          <span class="aides-stat-name">
+            <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
+            Éco-PTZ taux zéro
+          </span>
+          <span class="aides-stat-value">50 000 €</span>
+        </div>
+
+        <div class="aides-note">
+          <strong>Certification RGE obligatoire</strong> — Seule une entreprise reconnue RGE
+          comme ISOL PRESTIGE vous permet d'accéder à l'ensemble de ces dispositifs.
+          <a href="simulateur.html" style="color:#40916c;text-decoration:underline;font-weight:600;">
+            Calculez votre aide personnalisée →
+          </a>
+        </div>
+      </div>
+
+    </article>
+  </section>
+
   <!-- ================= CONTACT ================= -->
   <section id="contact" class="section alt contact-section">
     <div class="container contact-grid">
@@ -311,12 +660,11 @@
         </div>
       </div>
 
-      <!-- ===== FORMULAIRE NETLIFY ===== -->
+      <!-- FORMULAIRE NETLIFY -->
       <div class="contact-form">
         <h2>Demande de devis gratuit</h2>
         <p class="contact-form-sub">Réponse rapide &bull; Devis gratuit &bull; Sans engagement</p>
 
-        <!-- Formulaire Netlify : l'attribut data-netlify="true" active la détection automatique -->
         <form
           name="contact"
           method="POST"
@@ -326,10 +674,8 @@
           class="netlify-form"
           novalidate
         >
-          <!-- Champ caché requis par Netlify -->
           <input type="hidden" name="form-name" value="contact">
 
-          <!-- Honeypot anti-spam (invisible) -->
           <p class="hidden-field">
             <label>Ne pas remplir : <input name="bot-field"></label>
           </p>
@@ -470,7 +816,6 @@
   </div>
 
   <script>
-    // Année dynamique dans le footer
     document.getElementById("annee").textContent = new Date().getFullYear();
 
     // ===== COOKIES =====
@@ -485,9 +830,7 @@
       const btnSave = document.getElementById("cookieSave");
       const chkAnalytics = document.getElementById("cookieAnalytics");
 
-      function getConsent() {
-        try { return JSON.parse(localStorage.getItem(KEY)); } catch(e) { return null; }
-      }
+      function getConsent() { try { return JSON.parse(localStorage.getItem(KEY)); } catch(e) { return null; } }
       function setConsent(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
       function hideBanner() { if (banner) banner.style.display = "none"; }
       function openModal() { modal.style.display = "flex"; modal.setAttribute("aria-hidden", "false"); }
@@ -556,21 +899,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
