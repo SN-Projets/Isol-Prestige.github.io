@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Simulateur Aides Rénovation 2026 – ISOL PRESTIGE</title>
+
+  <meta name="description" content="Calculez gratuitement vos aides MaPrimeRénov', CEE et éco-PTZ pour vos travaux d'isolation extérieure. Simulateur officiel 2026 – ISOL PRESTIGE, entreprise RGE dans les Vosges.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicons (mêmes que index) -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png?v=2">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=2">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* =============================================
+       VARIABLES & RESET — cohérents avec style.css
+    ============================================= */
+    :root {
+      --noir:        #0f0f0f;
+      --blanc:       #f7f4ef;
+      --or:          #c8a96e;
+      --or-light:    #e8d5a3;
+      --vert:        #2d6a4f;
+      --vert-light:  #40916c;
+      --gris:        #6b6b6b;
+      --gris-light:  #e8e4dc;
+      --card-bg:     #faf8f4;
+      --shadow:      0 4px 32px rgba(0,0,0,0.08);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--blanc);
+      color: var(--noir);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =============================================
+       HEADER — identique au site principal
+    ============================================= */
+    .sim-header {
+      background: var(--noir);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(200,169,110,0.15);
+    }
+
+    .sim-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .sim-logo img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .sim-logo-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blanc);
+      letter-spacing: 0.5px;
+    }
+
+    .sim-logo-text span {
+      color: var(--or);
+    }
+
+    .sim-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sim-header-badge {
+      background: rgba(45,106,79,0.25);
+      border: 1px solid rgba(64,145,108,0.4);
+      color: var(--vert-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .sim-header-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(247,244,239,0.55);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .sim-header-back:hover { color: var(--or); }
+
+    /* =============================================
+       HERO SIMULATEUR
+    ============================================= */
+    .sim-hero {
+      background: var(--noir);
+      padding: 60px 24px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sim-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,169,110,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .sim-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 169, 110, 0.12);
+      border: 1px solid rgba(200, 169, 110, 0.3);
+      color: var(--or);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .sim-hero h1 {
+      color: var(--blanc);
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .sim-hero h1 em {
+      color: var(--or);
+      font-style: italic;
+    }
+
+    .sim-hero-sub {
+      color: rgba(247,244,239,0.55);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+
+    .sim-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .sim-stat { text-align: center; }
+
+    .sim-stat-number {
+      color: var(--or);
+      font-size: 1.9rem;
+      font-weight: 700;
+      font-family: Georgia, serif;
+    }
+
+    .sim-stat-label {
+      color: rgba(247,244,239,0.4);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* =============================================
+       MAIN — carte simulateur
+    ============================================= */
+    .sim-main {
+      max-width: 760px;
+      margin: -28px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+      flex: 1;
+    }
+
+    /* Barre de progression */
+    .sim-progress-wrap {
+      background: white;
+      border-radius: 14px 14px 0 0;
+      padding: 22px 28px 0;
+      box-shadow: var(--shadow);
+    }
+
+    .sim-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .sim-progress-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gris);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .sim-progress-count {
+      font-size: 0.78rem;
+      color: var(--gris);
+    }
+
+    .sim-progress-bar {
+      height: 3px;
+      background: var(--gris-light);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .sim-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--vert), var(--or));
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Carte étape */
+    .sim-card {
+      background: white;
+      border-radius: 0 0 14px 14px;
+      padding: 32px 28px 28px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Étapes */
+    .sim-step { display: none; animation: simFade 0.35s ease; }
+    .sim-step.active { display: block; }
+
+    @keyframes simFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sim-step-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, var(--vert), var(--vert-light));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+    }
+
+    .sim-step-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--noir);
+      margin-bottom: 6px;
+    }
+
+    .sim-step-desc {
+      color: var(--gris);
+      font-size: 0.88rem;
+      margin-bottom: 26px;
+      line-height: 1.55;
+    }
+
+    /* Grille options */
+    .sim-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .sim-option-btn {
+      border: 1.5px solid var(--gris-light);
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: all 0.18s;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .sim-option-btn:hover {
+      border-color: var(--vert-light);
+      background: #f0f7f4;
+      transform: translateY(-1px);
+    }
+
+    .sim-option-btn.selected {
+      border-color: var(--vert);
+      background: #eaf4ef;
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+    }
+
+    .sim-option-icon { font-size: 1.2rem; }
+    .sim-option-label { font-weight: 700; font-size: 0.86rem; color: var(--noir); line-height: 1.3; }
+    .sim-option-sub   { font-size: 0.72rem; color: var(--gris); }
+
+    /* Champs */
+    .sim-form-group { margin-bottom: 18px; }
+
+    .sim-form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--noir);
+      margin-bottom: 7px;
+      letter-spacing: 0.2px;
+    }
+
+    .sim-select, .sim-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1.5px solid var(--gris-light);
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--noir);
+      background: var(--card-bg);
+      appearance: none;
+      cursor: pointer;
+      transition: border-color 0.18s;
+      outline: none;
+    }
+
+    .sim-select:focus, .sim-input:focus {
+      border-color: var(--vert);
+      background: white;
+    }
+
+    .sim-select-wrap { position: relative; }
+
+    .sim-select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--gris);
+      pointer-events: none;
+      font-size: 0.85rem;
+    }
+
+    /* Slider revenus */
+    .sim-revenus-display {
+      background: var(--noir);
+      border-radius: 11px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sim-revenus-amount {
+      font-family: Georgia, serif;
+      color: var(--or);
+      font-size: 1.7rem;
+      font-weight: 700;
+    }
+
+    .sim-profil-badge {
+      display: inline-block;
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .sim-profil-bleu   { background: #dbeafe; color: #1e40af; }
+    .sim-profil-jaune  { background: #fef3c7; color: #92400e; }
+    .sim-profil-violet { background: #ede9fe; color: #6d28d9; }
+    .sim-profil-rose   { background: #fce7f3; color: #9d174d; }
+
+    .sim-profil-label {
+      font-size: 0.7rem;
+      color: rgba(247,244,239,0.4);
+      margin-top: 4px;
+      display: block;
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--gris-light);
+      outline: none;
+      cursor: pointer;
+      accent-color: var(--vert);
+      margin-bottom: 10px;
+    }
+
+    .sim-range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--gris);
+    }
+
+    /* Travaux checkboxes */
+    .sim-travaux-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 24px;
+    }
+
+    .sim-travaux-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 13px 16px;
+      border: 1.5px solid var(--gris-light);
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: var(--card-bg);
+    }
+
+    .sim-travaux-item:hover { border-color: var(--vert-light); background: #f0f7f4; }
+    .sim-travaux-item.checked { border-color: var(--vert); background: #eaf4ef; }
+
+    .sim-travaux-item input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--vert);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .sim-travaux-info { flex: 1; }
+
+    .sim-travaux-name { font-weight: 700; font-size: 0.88rem; color: var(--noir); }
+    .sim-travaux-desc { font-size: 0.72rem; color: var(--gris); margin-top: 2px; }
+
+    .sim-travaux-aide {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--vert);
+      text-align: right;
+      flex-shrink: 0;
+      min-width: 80px;
+    }
+
+    /* Alerte */
+    .sim-alerte {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 9px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .sim-alerte-icon { font-size: 0.95rem; flex-shrink: 0; margin-top: 1px; color: #92400e; }
+    .sim-alerte-text { font-size: 0.8rem; color: #78350f; line-height: 1.5; }
+
+    /* Boutons */
+    .sim-btn-primary {
+      width: 100%;
+      background: var(--noir);
+      color: var(--blanc);
+      border: none;
+      border-radius: 10px;
+      padding: 15px 22px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .sim-btn-primary:hover {
+      background: #1a1a1a;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+    }
+
+    .sim-btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .sim-btn-secondary {
+      background: none;
+      border: none;
+      color: var(--gris);
+      font-family: inherit;
+      font-size: 0.82rem;
+      cursor: pointer;
+      padding: 10px;
+      display: block;
+      margin: 8px auto 0;
+      text-decoration: underline;
+    }
+
+    .sim-btn-secondary:hover { color: var(--noir); }
+
+    .sim-btn-or {
+      width: 100%;
+      background: linear-gradient(135deg, var(--vert), var(--vert-light));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 17px 22px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: 0.2px;
+    }
+
+    .sim-btn-or:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(45,106,79,0.28);
+    }
+
+    /* =============================================
+       RÉSULTATS
+    ============================================= */
+    .sim-resultat-hero {
+      background: var(--noir);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .sim-resultat-label {
+      color: rgba(247,244,239,0.45);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .sim-resultat-montant {
+      font-family: Georgia, serif;
+      color: var(--or);
+      font-size: 3.2rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .sim-resultat-sub {
+      color: rgba(247,244,239,0.5);
+      font-size: 0.82rem;
+    }
+
+    .sim-aides-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .sim-aide-card {
+      background: var(--card-bg);
+      border: 1px solid var(--gris-light);
+      border-radius: 11px;
+      padding: 16px;
+    }
+
+    .sim-aide-card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gris);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 7px;
+    }
+
+    .sim-aide-card-amount {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--vert);
+      font-weight: 700;
+    }
+
+    .sim-aide-card-desc {
+      font-size: 0.7rem;
+      color: var(--gris);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .sim-reste-charge {
+      background: linear-gradient(135deg, #f0f7f4, #eaf4ef);
+      border: 1.5px solid var(--vert-light);
+      border-radius: 11px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sim-reste-label { font-weight: 700; font-size: 0.88rem; color: var(--vert); }
+
+    .sim-reste-amount {
+      font-family: Georgia, serif;
+      font-size: 1.7rem;
+      color: var(--vert);
+      font-weight: 700;
+    }
+
+    .sim-info-box {
+      background: #f0f7f4;
+      border-left: 3px solid var(--vert);
+      border-radius: 0 9px 9px 0;
+      padding: 13px 16px;
+      margin-bottom: 22px;
+    }
+
+    .sim-info-box-text { font-size: 0.8rem; color: #1a3a2a; line-height: 1.5; }
+
+    /* =============================================
+       CONTACT (étape 5) — CTA vers le site
+    ============================================= */
+    .sim-contact-box {
+      background: var(--noir);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 18px;
+    }
+
+    .sim-contact-box-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blanc);
+      margin-bottom: 6px;
+    }
+
+    .sim-contact-box-sub {
+      color: rgba(247,244,239,0.45);
+      font-size: 0.82rem;
+      margin-bottom: 22px;
+    }
+
+    .sim-contact-box .sim-input {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--blanc);
+      margin-bottom: 10px;
+    }
+
+    .sim-contact-box .sim-input::placeholder { color: rgba(247,244,239,0.25); }
+    .sim-contact-box .sim-input:focus { border-color: var(--or); background: rgba(255,255,255,0.1); }
+
+    .sim-rgpd {
+      font-size: 0.7rem;
+      color: rgba(247,244,239,0.28);
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       SUCCÈS
+    ============================================= */
+    .sim-success {
+      text-align: center;
+      padding: 16px 0;
+    }
+
+    .sim-success-icon {
+      width: 68px; height: 68px;
+      background: linear-gradient(135deg, var(--vert), var(--vert-light));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 22px;
+    }
+
+    .sim-success-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--noir);
+      margin-bottom: 10px;
+    }
+
+    .sim-success-text {
+      color: var(--gris);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+
+    .sim-success-recap {
+      background: var(--card-bg);
+      border: 1px solid var(--gris-light);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .sim-success-recap-amount {
+      font-family: Georgia, serif;
+      font-size: 2.3rem;
+      color: var(--vert);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .sim-success-recap-label { font-size: 0.8rem; color: var(--gris); }
+
+    .sim-success-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sim-btn-devis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--or);
+      color: var(--noir);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 16px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sim-btn-devis:hover {
+      background: var(--or-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(200,169,110,0.25);
+    }
+
+    /* =============================================
+       FOOTER — cohérent avec le site
+    ============================================= */
+    .sim-footer {
+      background: var(--noir);
+      border-top: 1px solid rgba(200,169,110,0.12);
+      text-align: center;
+      padding: 32px 20px;
+      color: rgba(247,244,239,0.35);
+      font-size: 0.75rem;
+      line-height: 1.7;
+      margin-top: auto;
+    }
+
+    .sim-footer a {
+      color: rgba(200,169,110,0.6);
+      text-decoration: none;
+    }
+
+    .sim-footer a:hover { color: var(--or); }
+
+    .sim-footer strong { color: rgba(247,244,239,0.7); }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 600px) {
+      .sim-header { padding: 14px 18px; }
+      .sim-header-back span { display: none; }
+      .sim-hero { padding: 44px 18px 54px; }
+      .sim-hero-stats { gap: 22px; }
+      .sim-card { padding: 22px 18px; }
+      .sim-progress-wrap { padding: 18px 18px 0; }
+      .sim-options-grid { grid-template-columns: 1fr; }
+      .sim-aides-grid { grid-template-columns: 1fr; }
+      .sim-resultat-montant { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="sim-header">
+    <a href="index.html" class="sim-logo" aria-label="Retour au site ISOL PRESTIGE">
+      <img src="images/logo.png" alt="Logo ISOL PRESTIGE" width="44" height="44">
+      <span class="sim-logo-text">ISOL <span>PRESTIGE</span></span>
+    </a>
+
+    <div class="sim-header-right">
+      <span class="sim-header-badge">
+        <i class="fa-solid fa-check" aria-hidden="true"></i>
+        Barèmes 2026
+      </span>
+      <a href="index.html" class="sim-header-back">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        <span>Retour au site</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="sim-hero" role="banner">
+    <div class="sim-hero-eyebrow">
+      <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+      Simulateur officiel gratuit
+    </div>
+    <h1>Calculez vos aides<br><em>rénovation énergétique</em></h1>
+    <p class="sim-hero-sub">
+      Estimez en 2 minutes les subventions auxquelles vous avez droit —
+      MaPrimeRénov', CEE, éco-PTZ — selon votre profil exact.
+    </p>
+    <div class="sim-hero-stats">
+      <div class="sim-stat">
+        <div class="sim-stat-number">24 000 €</div>
+        <div class="sim-stat-label">Aide max. cumulée</div>
+      </div>
+      <div class="sim-stat">
+        <div class="sim-stat-number">75 %</div>
+        <div class="sim-stat-label">Prise en charge max.</div>
+      </div>
+      <div class="sim-stat">
+        <div class="sim-stat-number">2 min</div>
+        <div class="sim-stat-label">Pour simuler</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="sim-main">
+
+    <div class="sim-progress-wrap">
+      <div class="sim-progress-header">
+        <span class="sim-progress-label">Votre simulation</span>
+        <span class="sim-progress-count" id="progressCount">Étape 1 sur 5</span>
+      </div>
+      <div class="sim-progress-bar">
+        <div class="sim-progress-fill" id="progressFill" style="width:20%"></div>
+      </div>
+    </div>
+
+    <div class="sim-card">
+
+      <!-- ===== ÉTAPE 1 : Logement ===== -->
+      <div class="sim-step active" id="step1">
+        <div class="sim-step-icon">🏠</div>
+        <h2 class="sim-step-title">Votre logement</h2>
+        <p class="sim-step-desc">Quel type de bien souhaitez-vous rénover ?</p>
+
+        <div class="sim-options-grid">
+          <button class="sim-option-btn" onclick="selectOption(this, 'logement', 'maison')">
+            <span class="sim-option-icon">🏡</span>
+            <span class="sim-option-label">Maison individuelle</span>
+            <span class="sim-option-sub">Maison, pavillon, villa</span>
+          </button>
+          <button class="sim-option-btn" onclick="selectOption(this, 'logement', 'appartement')">
+            <span class="sim-option-icon">🏢</span>
+            <span class="sim-option-label">Appartement</span>
+            <span class="sim-option-sub">En copropriété</span>
+          </button>
+        </div>
+
+        <div class="sim-form-group">
+          <label class="sim-form-label">Année de construction</label>
+          <div class="sim-select-wrap">
+            <select class="sim-select" id="anneeConstruction" onchange="updateData('annee', this.value)">
+              <option value="">Sélectionnez une période</option>
+              <option value="avant1948">Avant 1948</option>
+              <option value="1948-1974">1948 – 1974</option>
+              <option value="1975-1989">1975 – 1989</option>
+              <option value="1990-2005">1990 – 2005</option>
+              <option value="apres2005">Après 2005</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sim-form-group">
+          <label class="sim-form-label">Êtes-vous propriétaire occupant ou bailleur ?</label>
+          <div class="sim-select-wrap">
+            <select class="sim-select" onchange="updateData('statut', this.value)">
+              <option value="">Sélectionnez votre statut</option>
+              <option value="occupant">Propriétaire occupant</option>
+              <option value="bailleur">Propriétaire bailleur</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="sim-btn-primary" onclick="nextStep()" id="btn1" disabled>
+          Continuer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- ===== ÉTAPE 2 : Revenus ===== -->
+      <div class="sim-step" id="step2">
+        <div class="sim-step-icon">💶</div>
+        <h2 class="sim-step-title">Vos revenus</h2>
+        <p class="sim-step-desc">Le montant des aides dépend de votre revenu fiscal de référence (indiqué sur votre avis d'imposition).</p>
+
+        <div class="sim-form-group">
+          <label class="sim-form-label">Nombre de personnes dans le foyer</label>
+          <div class="sim-select-wrap">
+            <select class="sim-select" id="nbPersonnes" onchange="updateRevenus()">
+              <option value="1">1 personne</option>
+              <option value="2" selected>2 personnes</option>
+              <option value="3">3 personnes</option>
+              <option value="4">4 personnes</option>
+              <option value="5">5 personnes ou plus</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sim-form-group">
+          <label class="sim-form-label">Zone géographique</label>
+          <div class="sim-select-wrap">
+            <select class="sim-select" id="zone" onchange="updateRevenus()">
+              <option value="province" selected>Province (hors Île-de-France)</option>
+              <option value="idf">Île-de-France</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sim-revenus-display">
+          <div>
+            <div style="color:rgba(247,244,239,0.4);font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">Revenu fiscal annuel</div>
+            <div class="sim-revenus-amount" id="revenus-display">25 000 €</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="sim-profil-badge sim-profil-bleu" id="profil-badge">🔵 Bleu</div>
+            <span class="sim-profil-label" id="profil-label">Revenus très modestes</span>
+          </div>
+        </div>
+
+        <input type="range" id="revenusSlider" min="0" max="120000" step="1000" value="25000" oninput="updateRevenus()">
+        <div class="sim-range-labels">
+          <span>0 €</span>
+          <span>60 000 €</span>
+          <span>120 000 €</span>
+        </div>
+
+        <div style="margin-top:18px;"></div>
+        <button class="sim-btn-primary" onclick="nextStep()">
+          Continuer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <button class="sim-btn-secondary" onclick="prevStep()">← Retour</button>
+      </div>
+
+      <!-- ===== ÉTAPE 3 : Travaux ===== -->
+      <div class="sim-step" id="step3">
+        <div class="sim-step-icon">🔧</div>
+        <h2 class="sim-step-title">Vos travaux</h2>
+        <p class="sim-step-desc">Sélectionnez les travaux envisagés. Plusieurs choix possibles.</p>
+
+        <div class="sim-alerte">
+          <span class="sim-alerte-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+          <span class="sim-alerte-text">
+            <strong>Nouveauté 2026 :</strong> L'isolation des murs (ITE/ITI) n'est plus éligible en monogeste.
+            Elle doit s'inscrire dans une rénovation d'ampleur (minimum 2 travaux d'isolation + gain de 2 classes DPE).
+          </span>
+        </div>
+
+        <div class="sim-travaux-list" id="travauxList">
+          <!-- Généré par JS -->
+        </div>
+
+        <button class="sim-btn-primary" onclick="nextStep()" id="btn3" disabled>
+          Calculer mes aides <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+        </button>
+        <button class="sim-btn-secondary" onclick="prevStep()">← Retour</button>
+      </div>
+
+      <!-- ===== ÉTAPE 4 : Résultats ===== -->
+      <div class="sim-step" id="step4">
+        <div class="sim-step-icon">📊</div>
+        <h2 class="sim-step-title">Vos aides estimées</h2>
+        <p class="sim-step-desc">Voici une estimation personnalisée basée sur votre profil 2026.</p>
+
+        <div class="sim-resultat-hero">
+          <div class="sim-resultat-label">Total des aides estimées</div>
+          <div class="sim-resultat-montant" id="totalAides">0 €</div>
+          <div class="sim-resultat-sub">Selon votre profil <span id="profilResult"></span></div>
+        </div>
+
+        <div class="sim-aides-grid" id="aidesGrid">
+          <!-- Généré par JS -->
+        </div>
+
+        <div class="sim-reste-charge">
+          <div>
+            <div class="sim-reste-label">Reste à charge estimé</div>
+            <div style="font-size:0.75rem;color:var(--gris);margin-top:3px;">Sur un chantier de <span id="coutChantier">0 €</span></div>
+          </div>
+          <div class="sim-reste-amount" id="resteCharge">0 €</div>
+        </div>
+
+        <div class="sim-info-box">
+          <div class="sim-info-box-text" id="infoBoxText">
+            Ces montants sont des estimations indicatives. Un conseiller ISOL PRESTIGE peut affiner votre dossier gratuitement.
+          </div>
+        </div>
+
+        <button class="sim-btn-or" onclick="nextStep()">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          Être rappelé par un expert ISOL PRESTIGE
+        </button>
+        <button class="sim-btn-secondary" onclick="prevStep()">← Modifier mes choix</button>
+      </div>
+
+      <!-- ===== ÉTAPE 5 : Contact ===== -->
+      <div class="sim-step" id="step5">
+        <div class="sim-step-icon">📞</div>
+        <h2 class="sim-step-title">Finalisez votre simulation</h2>
+        <p class="sim-step-desc">Un expert RGE d'ISOL PRESTIGE vous rappelle gratuitement pour confirmer vos droits et lancer votre dossier dans les Vosges, Meurthe-et-Moselle ou Bas-Rhin.</p>
+
+        <div class="sim-contact-box">
+          <div class="sim-contact-box-title">Vos coordonnées</div>
+          <div class="sim-contact-box-sub">Rappel gratuit sous 24h — Sans engagement</div>
+          <input type="text"  class="sim-input" id="contactNom"   placeholder="Votre prénom et nom">
+          <input type="tel"   class="sim-input" id="contactTel"   placeholder="Votre téléphone">
+          <input type="email" class="sim-input" id="contactEmail" placeholder="Votre e-mail">
+          <input type="text"  class="sim-input" id="contactVille" placeholder="Votre ville / code postal (Vosges 88, 54, 67…)">
+          <p class="sim-rgpd">
+            <i class="fa-solid fa-lock" aria-hidden="true"></i>
+            Vos données sont confidentielles et utilisées uniquement pour vous rappeler.
+            Conformément au RGPD, vous pouvez demander leur suppression à tout moment.
+          </p>
+        </div>
+
+        <button class="sim-btn-or" onclick="submitContact()">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          Recevoir mon étude personnalisée
+        </button>
+        <button class="sim-btn-secondary" onclick="prevStep()">← Retour</button>
+      </div>
+
+      <!-- ===== SUCCÈS ===== -->
+      <div class="sim-step" id="stepSuccess">
+        <div class="sim-success">
+          <div class="sim-success-icon">✓</div>
+          <h2 class="sim-success-title">Demande enregistrée !</h2>
+          <p class="sim-success-text">
+            Un expert ISOL PRESTIGE va vous contacter sous 24h pour confirmer vos aides
+            et préparer votre dossier de rénovation.
+          </p>
+          <div class="sim-success-recap">
+            <div class="sim-success-recap-amount" id="successAmount">0 €</div>
+            <div class="sim-success-recap-label">d'aides potentielles identifiées pour votre projet</div>
+          </div>
+          <div class="sim-success-actions">
+            <a href="index.html#contact" class="sim-btn-devis">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              Demander un devis complet
+            </a>
+            <button class="sim-btn-primary" onclick="resetSimulator()">
+              <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+              Nouvelle simulation
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.sim-card -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="sim-footer">
+    <strong>ISOL PRESTIGE</strong> — Expert en isolation extérieure, certifié RGE<br>
+    16 Rue du Lieutenant Bachelier, 88100 Saint-Dié-des-Vosges ·
+    <a href="tel:+33771680749">+33 7 71 68 07 49</a><br>
+    <br>
+    Simulateur basé sur les barèmes officiels ANAH 2026 · Résultats indicatifs ·
+    <a href="https://france-renov.gouv.fr" target="_blank" rel="noopener">france-renov.gouv.fr</a>
+    <br>
+    <a href="index.html">← Retour au site</a> ·
+    <a href="mentions-legales.html">Mentions légales</a> ·
+    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+  </footer>
+
+  <script>
+    // =============================================
+    // DONNÉES
+    // =============================================
+
+    const simData = {
+      logement: null,
+      annee: null,
+      statut: null,
+      revenus: 25000,
+      nbPersonnes: 2,
+      zone: 'province',
+      travaux: [],
+      profil: 'bleu'
+    };
+
+    // Barèmes plafonds revenus ANAH 2026
+    const baremes = {
+      province: {
+        1: { bleu: 17009, jaune: 21805, violet: 30427 },
+        2: { bleu: 24875, jaune: 31889, violet: 44497 },
+        3: { bleu: 29917, jaune: 38349, violet: 53488 },
+        4: { bleu: 34948, jaune: 44802, violet: 62476 },
+        5: { bleu: 40002, jaune: 51281, violet: 71465 }
+      },
+      idf: {
+        1: { bleu: 25714, jaune: 32974, violet: 47230 },
+        2: { bleu: 37538, jaune: 48117, violet: 69088 },
+        3: { bleu: 45144, jaune: 57875, violet: 82981 },
+        4: { bleu: 52738, jaune: 67623, violet: 96974 },
+        5: { bleu: 60334, jaune: 77396, violet: 110983 }
+      }
+    };
+
+    const travauxDisponibles = [
+      {
+        id: 'ite',
+        nom: 'Isolation murs extérieur (ITE)',
+        desc: "Rénovation d'ampleur obligatoire en 2026",
+        icon: '🧱',
+        aides: { bleu: 75, jaune: 60, violet: 40, rose: 0 },
+        surface: 100,
+        ampleur: true,
+        coutBase: 15000
+      },
+      {
+        id: 'combles',
+        nom: 'Isolation combles / toiture',
+        desc: 'Très efficace, fortement subventionnée',
+        icon: '🏘️',
+        aides: { bleu: 25, jaune: 20, violet: 15, rose: 0 },
+        surface: 80,
+        ampleur: false,
+        coutBase: 6000
+      },
+      {
+        id: 'plancher',
+        nom: 'Isolation plancher bas',
+        desc: 'Réduit les pertes thermiques par le sol',
+        icon: '⬇️',
+        aides: { bleu: 7, jaune: 6, violet: 4, rose: 0 },
+        surface: 80,
+        ampleur: false,
+        coutBase: 4000
+      },
+      {
+        id: 'fenetres',
+        nom: 'Remplacement fenêtres / menuiseries',
+        desc: 'Double ou triple vitrage',
+        icon: '🪟',
+        aides: { bleu: 100, jaune: 80, violet: 40, rose: 0 },
+        surface: 10,
+        ampleur: false,
+        coutBase: 5000
+      },
+      {
+        id: 'pac',
+        nom: 'Pompe à chaleur air-eau',
+        desc: 'Remplace chaudière fioul/gaz',
+        icon: '♻️',
+        aides: { bleu: 5000, jaune: 4000, violet: 3000, rose: 0 },
+        surface: 1,
+        ampleur: false,
+        coutBase: 12000
+      },
+      {
+        id: 'vmc',
+        nom: 'VMC double flux',
+        desc: 'Ventilation mécanique contrôlée',
+        icon: '💨',
+        aides: { bleu: 1500, jaune: 1200, violet: 800, rose: 0 },
+        surface: 1,
+        ampleur: false,
+        coutBase: 3000
+      }
+    ];
+
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // =============================================
+    // NAVIGATION
+    // =============================================
+
+    function showStep(n) {
+      document.querySelectorAll('.sim-step').forEach(s => s.classList.remove('active'));
+      if (n > totalSteps) {
+        document.getElementById('stepSuccess').classList.add('active');
+        document.querySelector('.sim-progress-wrap').style.display = 'none';
+      } else {
+        document.getElementById('step' + n).classList.add('active');
+        document.getElementById('progressCount').textContent = 'Étape ' + n + ' sur ' + totalSteps;
+        document.getElementById('progressFill').style.width = (n / totalSteps * 100) + '%';
+      }
+    }
+
+    function nextStep() {
+      if (currentStep === 2) setTimeout(initTravaux, 50);
+      if (currentStep === 3) computeResultats();
+      currentStep++;
+      showStep(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function prevStep() {
+      currentStep--;
+      showStep(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =============================================
+    // ÉTAPE 1
+    // =============================================
+
+    function selectOption(btn, key, value) {
+      btn.closest('.sim-options-grid').querySelectorAll('.sim-option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      simData[key] = value;
+      checkStep1();
+    }
+
+    function updateData(key, value) {
+      simData[key] = value;
+      checkStep1();
+    }
+
+    function checkStep1() {
+      const ok = simData.logement && simData.annee && simData.statut;
+      document.getElementById('btn1').disabled = !ok;
+    }
+
+    // =============================================
+    // ÉTAPE 2 — REVENUS
+    // =============================================
+
+    function updateRevenus() {
+      const slider = document.getElementById('revenusSlider');
+      const nb     = parseInt(document.getElementById('nbPersonnes').value);
+      const zone   = document.getElementById('zone').value;
+      const revenus = parseInt(slider.value);
+
+      simData.revenus = revenus;
+      simData.nbPersonnes = nb;
+      simData.zone = zone;
+
+      document.getElementById('revenus-display').textContent = revenus.toLocaleString('fr-FR') + ' €';
+
+      const seuils = baremes[zone][Math.min(nb, 5)];
+      let profil, badge, label;
+
+      if (revenus <= seuils.bleu) {
+        profil = 'bleu';   badge = '🔵 Bleu';   label = 'Revenus très modestes';
+      } else if (revenus <= seuils.jaune) {
+        profil = 'jaune';  badge = '🟡 Jaune';  label = 'Revenus modestes';
+      } else if (revenus <= seuils.violet) {
+        profil = 'violet'; badge = '🟣 Violet'; label = 'Revenus intermédiaires';
+      } else {
+        profil = 'rose';   badge = '🩷 Rose';   label = 'Revenus supérieurs';
+      }
+
+      simData.profil = profil;
+      const badgeEl = document.getElementById('profil-badge');
+      badgeEl.textContent = badge;
+      badgeEl.className = 'sim-profil-badge sim-profil-' + profil;
+      document.getElementById('profil-label').textContent = label;
+    }
+
+    // =============================================
+    // ÉTAPE 3 — TRAVAUX
+    // =============================================
+
+    function initTravaux() {
+      const list = document.getElementById('travauxList');
+      list.innerHTML = '';
+
+      travauxDisponibles.forEach(t => {
+        const aide = t.aides[simData.profil];
+        const aideText = (t.id === 'ite' || t.id === 'combles' || t.id === 'plancher')
+          ? aide + ' €/m²'
+          : aide.toLocaleString('fr-FR') + ' €';
+
+        const disabled = (simData.profil === 'rose') ? 'opacity:0.38;pointer-events:none;' : '';
+
+        list.innerHTML += `
+          <label class="sim-travaux-item" style="${disabled}">
+            <input type="checkbox" value="${t.id}" onchange="toggleTravaux(this.closest('label'), '${t.id}')">
+            <div class="sim-travaux-info">
+              <div class="sim-travaux-name">${t.icon} ${t.nom}</div>
+              <div class="sim-travaux-desc">${t.desc}${t.ampleur ? " · <strong>Rénovation d'ampleur</strong>" : ''}</div>
+            </div>
+            <div class="sim-travaux-aide">${simData.profil === 'rose' ? 'Non éligible' : aideText}</div>
+          </label>
+        `;
+      });
+    }
+
+    function toggleTravaux(label, id) {
+      label.classList.toggle('checked');
+      checkStep3();
+    }
+
+    function checkStep3() {
+      const checked = document.querySelectorAll('#travauxList input[type="checkbox"]:checked');
+      simData.travaux = Array.from(checked).map(c => c.value);
+      document.getElementById('btn3').disabled = simData.travaux.length === 0;
+    }
+
+    // =============================================
+    // ÉTAPE 4 — CALCUL RÉSULTATS
+    // =============================================
+
+    function computeResultats() {
+      let totalMPR = 0;
+      let totalCEE = 0;
+      let totalCout = 0;
+
+      const selected = travauxDisponibles.filter(t => simData.travaux.includes(t.id));
+      const isAmpleur = selected.some(t => t.ampleur) && selected.length >= 2;
+
+      selected.forEach(t => {
+        const aide = t.aides[simData.profil] || 0;
+        let montant = 0;
+
+        if (['ite', 'combles', 'plancher'].includes(t.id)) {
+          montant = aide * t.surface;
+        } else if (t.id === 'fenetres') {
+          montant = aide * t.surface;
+        } else {
+          montant = aide;
+        }
+
+        if (isAmpleur || !t.ampleur) totalMPR += montant;
+        totalCout += t.coutBase;
+      });
+
+      if (isAmpleur) {
+        const tauxAmpleur = { bleu: 0.60, jaune: 0.50, violet: 0.35, rose: 0.15 };
+        const plafond     = { bleu: 40000, jaune: 40000, violet: 30000, rose: 30000 };
+        totalMPR = Math.min(totalCout, plafond[simData.profil]) * tauxAmpleur[simData.profil];
+      }
+
+      if (!isAmpleur) totalMPR = Math.min(totalMPR, 20000);
+
+      const tauxCEE = { bleu: 0.20, jaune: 0.15, violet: 0.10, rose: 0.05 };
+      totalCEE = totalCout * tauxCEE[simData.profil];
+
+      const ecoPTZ = (simData.profil === 'bleu' || simData.profil === 'jaune') ? 5000 : 0;
+
+      const totalAides = Math.round(totalMPR + totalCEE + ecoPTZ);
+      const resteCharge = Math.max(0, totalCout - totalAides);
+
+      // Affichage
+      document.getElementById('totalAides').textContent   = totalAides.toLocaleString('fr-FR') + ' €';
+      document.getElementById('profilResult').textContent  = 'profil ' + simData.profil;
+      document.getElementById('coutChantier').textContent  = totalCout.toLocaleString('fr-FR') + ' €';
+      document.getElementById('resteCharge').textContent   = resteCharge.toLocaleString('fr-FR') + ' €';
+      document.getElementById('successAmount').textContent = totalAides.toLocaleString('fr-FR') + ' €';
+
+      document.getElementById('aidesGrid').innerHTML = `
+        <div class="sim-aide-card">
+          <div class="sim-aide-card-title">MaPrimeRénov'</div>
+          <div class="sim-aide-card-amount">${Math.round(totalMPR).toLocaleString('fr-FR')} €</div>
+          <div class="sim-aide-card-desc">Subvention ANAH selon vos revenus et travaux</div>
+        </div>
+        <div class="sim-aide-card">
+          <div class="sim-aide-card-title">Prime CEE</div>
+          <div class="sim-aide-card-amount">${Math.round(totalCEE).toLocaleString('fr-FR')} €</div>
+          <div class="sim-aide-card-desc">Certificats d'économies d'énergie (fournisseurs)</div>
+        </div>
+        <div class="sim-aide-card">
+          <div class="sim-aide-card-title">TVA réduite</div>
+          <div class="sim-aide-card-amount">5,5 %</div>
+          <div class="sim-aide-card-desc">Au lieu de 20 % sur tous les travaux éligibles</div>
+        </div>
+        <div class="sim-aide-card">
+          <div class="sim-aide-card-title">Éco-PTZ</div>
+          <div class="sim-aide-card-amount">${ecoPTZ > 0 ? "Jusqu'à 50 000 €" : "Non prioritaire"}</div>
+          <div class="sim-aide-card-desc">Prêt à taux zéro sur 20 ans pour financer le reste</div>
+        </div>
+      `;
+
+      const pct = totalCout > 0 ? Math.round(totalAides / totalCout * 100) : 0;
+      document.getElementById('infoBoxText').innerHTML = `
+        <strong>Taux de prise en charge estimé : ${pct} %</strong><br>
+        ${isAmpleur
+          ? "✅ Votre projet est éligible à la rénovation d'ampleur — les aides sont maximales."
+          : "📌 Projet monogeste — certains travaux comme l'ITE nécessitent une rénovation d'ampleur pour être subventionnés."}
+      `;
+    }
+
+    // =============================================
+    // ÉTAPE 5 — CONTACT
+    // =============================================
+
+    function submitContact() {
+      const nom   = document.getElementById('contactNom').value.trim();
+      const tel   = document.getElementById('contactTel').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const ville = document.getElementById('contactVille').value.trim();
+
+      if (!nom || !tel) {
+        alert('Merci de renseigner au minimum votre nom et votre téléphone.');
+        return;
+      }
+
+      const lead = {
+        nom, tel, email, ville,
+        profil:   simData.profil,
+        revenus:  simData.revenus,
+        logement: simData.logement,
+        travaux:  simData.travaux,
+        date:     new Date().toISOString()
+      };
+
+      console.log('Lead ISOL PRESTIGE capturé :', lead);
+      // TODO: connecter à un backend ou Netlify Forms si souhaité
+
+      currentStep = totalSteps + 1;
+      showStep(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetSimulator() {
+      location.reload();
+    }
+
+    // Init
+    updateRevenus();
+  </script>
+
+  <!-- HubSpot — même tracker que le site principal -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/148085892.js"></script>
+
+</body>
+</html>
