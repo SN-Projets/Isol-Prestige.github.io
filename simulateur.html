@@ -808,6 +808,89 @@
     .sim-footer strong { color: rgba(247,244,239,0.7); }
 
     /* =============================================
+       DISCLAIMERS
+    ============================================= */
+
+    /* Bandeau hero */
+    .sim-disclaimer-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      max-width: 600px;
+      margin: 28px auto 0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: left;
+    }
+
+    .sim-disclaimer-banner i {
+      color: var(--or);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .sim-disclaimer-banner span {
+      font-size: 0.75rem;
+      color: rgba(247,244,239,0.5);
+      line-height: 1.6;
+    }
+
+    .sim-disclaimer-banner strong {
+      color: rgba(247,244,239,0.75);
+      font-weight: 700;
+    }
+
+    /* Bloc résultats */
+    .sim-disclaimer-result {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #fefce8;
+      border: 1px solid #fbbf24;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 22px;
+    }
+
+    .sim-disclaimer-result-icon {
+      width: 32px;
+      height: 32px;
+      background: #fef3c7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sim-disclaimer-result-icon i {
+      color: #d97706;
+      font-size: 0.9rem;
+    }
+
+    .sim-disclaimer-result-body {
+      flex: 1;
+    }
+
+    .sim-disclaimer-result-body strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+
+    .sim-disclaimer-result-body p {
+      font-size: 0.75rem;
+      color: #78350f;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* =============================================
        RESPONSIVE
     ============================================= */
     @media (max-width: 600px) {
@@ -849,13 +932,25 @@
   <div class="sim-hero" role="banner">
     <div class="sim-hero-eyebrow">
       <i class="fa-solid fa-leaf" aria-hidden="true"></i>
-      Simulateur officiel gratuit
+      Simulateur gratuit — résultats indicatifs
     </div>
     <h1>Calculez vos aides<br><em>rénovation énergétique</em></h1>
     <p class="sim-hero-sub">
       Estimez en 2 minutes les subventions auxquelles vous avez droit —
       MaPrimeRénov', CEE, éco-PTZ — selon votre profil exact.
     </p>
+
+    <!-- DISCLAIMER HERO -->
+    <div class="sim-disclaimer-banner" role="note" aria-label="Avertissement simulateur">
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      <span>
+        <strong>Outil de simulation uniquement.</strong>
+        Les montants affichés sont des <strong>estimations indicatives</strong> calculées sur la base
+        des barèmes ANAH 2026. Ils ne constituent pas un engagement, une garantie de versement,
+        ni un conseil financier ou juridique. Seule l'instruction officielle de votre dossier par
+        l'ANAH ou un conseiller France Rénov' agréé détermine vos droits réels.
+      </span>
+    </div>
     <div class="sim-hero-stats">
       <div class="sim-stat">
         <div class="sim-stat-number">24 000 €</div>
@@ -1041,6 +1136,25 @@
         <div class="sim-info-box">
           <div class="sim-info-box-text" id="infoBoxText">
             Ces montants sont des estimations indicatives. Un conseiller ISOL PRESTIGE peut affiner votre dossier gratuitement.
+          </div>
+        </div>
+
+        <!-- DISCLAIMER RÉSULTATS -->
+        <div class="sim-disclaimer-result" role="note" aria-label="Avertissement sur les résultats">
+          <div class="sim-disclaimer-result-icon">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          </div>
+          <div class="sim-disclaimer-result-body">
+            <strong>Ces résultats sont indicatifs et non contractuels.</strong>
+            <p>
+              Ce simulateur est un outil d'orientation gratuit. Les montants affichés sont calculés
+              sur la base des barèmes officiels ANAH 2026, mais ils peuvent varier selon votre
+              situation réelle (DPE, nature exacte des travaux, plafonds de ressources, cumul
+              d'aides, etc.). ISOL PRESTIGE ne peut être tenu responsable d'un écart entre
+              l'estimation affichée et les aides effectivement accordées par les organismes
+              compétents. Seule l'instruction de votre dossier par l'ANAH ou un conseiller
+              France Rénov' agréé est opposable.
+            </p>
           </div>
         </div>
 
